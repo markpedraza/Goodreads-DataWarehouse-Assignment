@@ -15,7 +15,7 @@ This is my CIS 4400 Homework assignmnet. Below in this readme you will find the 
 - Data: https://mengtingwan.github.io/data/goodreads.html#datasets
 
 ## Data Sourcing
-- Data Dictionary: cis4400_homework_data_dictionary
+- Data Dictionary: [cis4400_homework_data_dictionary](https://docs.google.com/spreadsheets/d/1jkoinxbfRpTWLr55Vq4RB_nFU3xyZ6ytug9vWEJ8YIY/edit?usp=sharing)
 - The data will be sourced through a connection to a Data Store/Cloud Storage. Specifically, Google Cloud Storage. 
 
 ## Information Architecture
