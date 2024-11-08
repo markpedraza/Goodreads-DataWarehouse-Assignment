@@ -28,3 +28,7 @@ Users will simply get access to reports generated from the Data Warehouse and wi
 ![Data Architecture](https://github.com/user-attachments/assets/dee7a8a3-a8b0-43da-bc56-f470263559d0)
 
 The Data Source contains multiple JSON files that include data and metadata about books from Goodreads.com. This data will then be moved into temporary storage, then into a Datamart, and finally it will be used there to create visualizations. 
+
+## Data Model
+
+This section will include the schema for the project. This will be added 11/8. Both fact tables and dim tables will be shown.
