@@ -30,5 +30,6 @@ Users will simply get access to reports generated from the Data Warehouse and wi
 The Data Source contains multiple JSON files that include data and metadata about books from Goodreads.com. This data will then be moved into temporary storage, then into a Datamart, and finally it will be used there to create visualizations. 
 
 ## Data Model
+![early_db_schema_goodreads](https://github.com/user-attachments/assets/83745b5a-00d5-4450-9098-92246cc916ad)
 
-This section will include the schema for the project. This will be added 11/8. Both fact tables and dim tables will be shown.
+This is the schema for the assignment, and was assembled using DBSchema. The file for this is located in the docs folder. 
