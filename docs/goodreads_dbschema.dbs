@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="CIS 4400 - Mark Pedraza - Goodreads" database="LogicalDesign" id="LogicalDesign-13e8" >
+	<schema name="CIS 4400 - Mark Pedraza - Goodreads" >
+		<table name="dim_date" prior="Entity" >
+			<column name="date_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="year_number" type="INT" jt="4" />
+			<column name="month_number" type="INT" jt="4" />
+			<column name="day_number" type="DATE" jt="91" />
+			<column name="week_number" type="DATE" jt="91" />
+			<column name="hour_number" type="DATE" jt="91" />
+			<column name="week_of_month" type="DATE" jt="91" />
+			<column name="week_of_year" type="DATE" jt="91" />
+			<column name="month_name" type="VARCHAR" length="50" jt="12" />
+			<column name="day_name" type="VARCHAR" length="50" jt="12" />
+			<column name="is_daylight_saving" type="BOOLEAN" jt="-7" />
+			<column name="timestamp_isoformat" type="DATETIME" length="12" jt="93" />
+			<index name="pk_dim_date" unique="PRIMARY_KEY" >
+				<column name="date_id" />
+			</index>
+		</table>
+		<table name="dim_location" prior="Entity" >
+			<column name="location_id" type="INT" jt="4" mandatory="y" />
+			<column name="country_code" type="CHAR" length="2" jt="1" >
+				<comment><![CDATA[A 2 character field that denotes the country. For example, "US" denotes The United States of America]]></comment>
+			</column>
+			<index name="pk_dim_location" unique="PRIMARY_KEY" >
+				<column name="location_id" />
+			</index>
+		</table>
+		<table name="dim_reviews" prior="Entity" />
+		<table name="dim_user" prior="Entity" >
+			<column name="user_id" type="BIGINT" jt="-5" />
+			<column name="rating" type="DOUBLE" jt="8" />
+		</table>
+		<table name="facts_books" prior="facts" >
+			<column name="fact_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="average_rating" type="DOUBLE" jt="8" />
+			<column name="ratings_count" type="INT" jt="4" />
+			<column name="text_reviews_count" type="INT" jt="4" />
+			<column name="num_pages" type="INT" jt="4" />
+			<column name="rating" type="INT" jt="4" />
+			<column name="publication_date_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="date_added_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="date_updated_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="read_at_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="started_at_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="country_id" type="INT" jt="4" mandatory="y" />
+			<index name="pk_facts_books" unique="PRIMARY_KEY" >
+				<column name="fact_id" />
+			</index>
+			<fk name="fk_facts_books_dim_date" to_schema="CIS 4400 - Mark Pedraza - Goodreads" to_table="dim_date" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="publication_date_id" pk="date_id" />
+			</fk>
+			<fk name="fk_facts_books_dim_date_0" to_schema="CIS 4400 - Mark Pedraza - Goodreads" to_table="dim_date" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="date_added_id" pk="date_id" />
+			</fk>
+			<fk name="fk_facts_books_dim_date_1" to_schema="CIS 4400 - Mark Pedraza - Goodreads" to_table="dim_date" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="date_updated_id" pk="date_id" />
+			</fk>
+			<fk name="fk_facts_books_dim_date_2" to_schema="CIS 4400 - Mark Pedraza - Goodreads" to_table="dim_date" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="read_at_id" pk="date_id" />
+			</fk>
+			<fk name="fk_facts_books_dim_date_3" to_schema="CIS 4400 - Mark Pedraza - Goodreads" to_table="dim_date" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="started_at_id" pk="date_id" />
+			</fk>
+			<fk name="fk_facts_books_dim_location" to_schema="CIS 4400 - Mark Pedraza - Goodreads" to_table="dim_location" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="country_id" pk="location_id" />
+			</fk>
+		</table>
+	</schema>
+	<layout name="Default Layout" id="Layout-17bd" show_relation="columns" >
+		<entity schema="CIS 4400 - Mark Pedraza - Goodreads" name="dim_date" color="C1D8EE" x="48" y="48" />
+		<entity schema="CIS 4400 - Mark Pedraza - Goodreads" name="dim_location" color="C1D8EE" x="912" y="160" />
+		<entity schema="CIS 4400 - Mark Pedraza - Goodreads" name="facts_books" color="C1D8EE" x="560" y="224" />
+	</layout>
+</project>
