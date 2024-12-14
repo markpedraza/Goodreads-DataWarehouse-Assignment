@@ -5,7 +5,7 @@ I used Google Cloud Platform for my project and made all my scripts using Google
 
 ## ExtractLoad
 
-This scirpt is essentially the same as the one provided by the creator of our data, Mengting Wan. She has kindly provided a script to download her data in her GitHub. The link for the original sciprt is [here](https://github.com/MengtingWan/goodreads/blob/master/download.ipynb). Without her script, finding out how to extract this data would have been significantly more difficult for me, so please check her work. 
+This scirpt is essentially the same as the one provided by the creator of our data, Mengting Wan. She has kindly provided a script to download her data in her GitHub. The link for the original script is [here](https://github.com/MengtingWan/goodreads/blob/master/download.ipynb). Without her script, finding out how to extract this data would have been significantly more difficult for me, so please check her work. 
 
 My own script is a modified version of the original. This script downloads the data locally to the computer, then uploads that local data to the landing folder of googreads_bucket. Remember, we are not using our actual local machines here, but instead a Dataproc cluster, so its downloading to the "cloud" computer then uploading to a bucket. This script also automatically unzips the downloaded files and uploads only extracted files. 
 
