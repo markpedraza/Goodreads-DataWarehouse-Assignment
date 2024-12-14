@@ -61,7 +61,29 @@ Instead, I took the first 3 values from the authors array and discarded the role
 ## Visualizations
 Once all the steps above are completed, we can move our data to Google BigQuery and visualize it with Tableau. Below are those visualizations.
 
-###
+
+### Count of interactions in each rating
+![count_books_pre](https://github.com/markpedraza/cis-4400-homework/blob/main/Images/count_of_books_in_each_rating_PRE.png)
+This is a graph that shows how much of each interaction is in each rating. As it stands, most ratings in interactions are within 4 or 5 stars. But why is that? If I were to speculate, it would likely be because no one wants to read 1 star books, and many people want to read books with high ratings (4, 5). This likely leads to a snowball effect where a book with high ratings will only continue to garner interactions, and books with low ratings will likely not be interacted with as much.
+
+But since we have this graph, we can fulfill our business requirement if we were to compare this chart with interactions that include reviews.
+
+
+### Count of interactions in each rating that _include_ reviewes
+![count_books_post](https://github.com/markpedraza/cis-4400-homework/blob/main/Images/count_of_books_in_each_rating_POST.png)
+This graph is the same as the previous one, except there is a filter on if the rating came with a review. There is not much difference in distribution between this graph and the last, but there are minor differences. Reviewers seem give slightly more 1, 2, and 5 ratings. Whereas they give slightly less 3 and 4 ratings. So in general, they give slightly more "extreme" reviews, and less tame ones. But the distribution seems too similar to matter.
+
+
+### All books and childrens books published by month.
+![line_chart](https://github.com/markpedraza/cis-4400-homework/blob/main/Images/count_of_books_published_by_month_whole%26childrens.png)
+This graph showcases how many books are published each month. There are 2 lines here, one line for childrens books, and another line for everything else. Initially, I had this graph set up to only view childrens books. I predicted that more books would be published later in the year to account for holidays. However, I was wrong. Most books are published between August (8) and October (10), likely because school starts around this time. But I am not sure why there is also a trend earlier in the year, as school typically starts again in Januray (1) or Feburary (2) after the holidays.
+
+I also wanted to see when all types of books are published generally, and it closely follows what was already found with childrens books.
+
+
+### Top 13 most rated book publishers excluding books with no publishers.  
+![pie_chart](https://github.com/markpedraza/cis-4400-homework/blob/main/Images/pie_chart.png)
+This graph showcases how many ratings each of the top 13 publisher receieves. This piechart excludes "other", which is all other publishers combined. Although these are the top 13, every publisher beneth them combined still make up for the vast majority of ratings. So to properly see each slice, we had to exclude it. 
 
 ## Citations 
 
