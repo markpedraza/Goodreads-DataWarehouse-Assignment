@@ -1,76 +1,122 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project name="CIS 4400 - Mark Pedraza - Goodreads" database="LogicalDesign" id="LogicalDesign-13e8" >
-	<schema name="CIS 4400 - Mark Pedraza - Goodreads" >
-		<table name="dim_date" prior="Entity" >
-			<column name="date_id" type="BIGINT" jt="-5" mandatory="y" />
-			<column name="year_number" type="INT" jt="4" />
-			<column name="month_number" type="INT" jt="4" />
-			<column name="day_number" type="DATE" jt="91" />
-			<column name="week_number" type="DATE" jt="91" />
-			<column name="hour_number" type="DATE" jt="91" />
-			<column name="week_of_month" type="DATE" jt="91" />
-			<column name="week_of_year" type="DATE" jt="91" />
-			<column name="month_name" type="VARCHAR" length="50" jt="12" />
-			<column name="day_name" type="VARCHAR" length="50" jt="12" />
-			<column name="is_daylight_saving" type="BOOLEAN" jt="-7" />
-			<column name="timestamp_isoformat" type="DATETIME" length="12" jt="93" />
-			<index name="pk_dim_date" unique="PRIMARY_KEY" >
-				<column name="date_id" />
-			</index>
-		</table>
-		<table name="dim_location" prior="Entity" >
-			<column name="location_id" type="INT" jt="4" mandatory="y" />
-			<column name="country_code" type="CHAR" length="2" jt="1" >
-				<comment><![CDATA[A 2 character field that denotes the country. For example, "US" denotes The United States of America]]></comment>
-			</column>
-			<index name="pk_dim_location" unique="PRIMARY_KEY" >
-				<column name="location_id" />
-			</index>
-		</table>
-		<table name="dim_reviews" prior="Entity" />
-		<table name="dim_user" prior="Entity" >
-			<column name="user_id" type="BIGINT" jt="-5" />
-			<column name="rating" type="DOUBLE" jt="8" />
-		</table>
-		<table name="facts_books" prior="facts" >
-			<column name="fact_id" type="BIGINT" jt="-5" mandatory="y" />
-			<column name="average_rating" type="DOUBLE" jt="8" />
+<project name="goodreads_schema" database="LogicalDesign" id="LogicalDesign-17d7" >
+	<schema name="goodreads_schema" >
+		<table name="dim_author" prior="Entity" >
+			<column name="dim_author_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="author_id" type="BIGINT" jt="-5" />
+			<column name="average_rating" type="DECIMAL" length="9999999" jt="3" />
+			<column name="name" type="VARCHAR" length="100" jt="12" />
 			<column name="ratings_count" type="INT" jt="4" />
 			<column name="text_reviews_count" type="INT" jt="4" />
-			<column name="num_pages" type="INT" jt="4" />
-			<column name="rating" type="INT" jt="4" />
-			<column name="publication_date_id" type="BIGINT" jt="-5" mandatory="y" />
-			<column name="date_added_id" type="BIGINT" jt="-5" mandatory="y" />
-			<column name="date_updated_id" type="BIGINT" jt="-5" mandatory="y" />
-			<column name="read_at_id" type="BIGINT" jt="-5" mandatory="y" />
-			<column name="started_at_id" type="BIGINT" jt="-5" mandatory="y" />
-			<column name="country_id" type="INT" jt="4" mandatory="y" />
-			<index name="pk_facts_books" unique="PRIMARY_KEY" >
-				<column name="fact_id" />
+			<index name="pk_dim_author" unique="PRIMARY_KEY" >
+				<column name="dim_author_id" />
 			</index>
-			<fk name="fk_facts_books_dim_date" to_schema="CIS 4400 - Mark Pedraza - Goodreads" to_table="dim_date" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
-				<fk_column name="publication_date_id" pk="date_id" />
+		</table>
+		<table name="dim_book" prior="Entity" >
+			<column name="book_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="asin" type="CHAR" length="50" jt="1" />
+			<column name="title" type="CHAR" length="50" jt="1" />
+			<column name="title_without_series" type="CHAR" length="50" jt="1" />
+			<column name="average_rating" type="DECIMAL" jt="3" />
+			<column name="num_pages" type="INT" jt="4" />
+			<column name="publisher" type="CHAR" length="50" jt="1" />
+			<column name="publication_date" type="DATE" jt="91" />
+			<column name="isbn" type="CHAR" length="20" jt="1" />
+			<column name="isbn13" type="CHAR" length="20" jt="1" />
+			<column name="language_code" type="CHAR" length="25" jt="1" />
+			<column name="format" type="CHAR" length="50" jt="1" />
+			<column name="is_ebook" type="INT" jt="4" />
+			<column name="country_code" type="CHAR" length="5" jt="1" />
+			<column name="description" type="CHAR" length="500" jt="1" />
+			<column name="edition_information" type="CHAR" length="100" jt="1" />
+			<column name="text_reviews_count" type="INT" jt="4" />
+			<index name="unq_book_id" unique="UNIQUE_INDEX" >
+				<column name="book_id" />
+			</index>
+			<index name="pk_dim_book" unique="PRIMARY_KEY" >
+				<column name="book_id" />
+			</index>
+		</table>
+		<table name="dim_genre" prior="Entity" >
+			<comment><![CDATA[Each attribute here is how many times that genre was selected by the user for the book. For example, for "Example Book", 10 people selected the "children" tag for it. Thats why children_count is 10.]]></comment>
+			<column name="book_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="children_count" type="INT" jt="4" />
+			<column name="comics_graphic_count" type="INT" jt="4" />
+			<column name="fantasy_paranormal_count" type="INT" jt="4" />
+			<column name="fiction_count" type="INT" jt="4" />
+			<column name="history_count" type="INT" jt="4" />
+			<column name="myster_count" type="INT" jt="4" />
+			<column name="non_fiction_count" type="INT" jt="4" />
+			<column name="poetry_count" type="INT" jt="4" />
+			<column name="romance_count" type="INT" jt="4" />
+			<column name="young_adult_count" type="INT" jt="4" />
+			<index name="unq_book_id" unique="UNIQUE_INDEX" >
+				<column name="book_id" />
+			</index>
+			<index name="pk_dim_genre" unique="PRIMARY_KEY" >
+				<column name="book_id" />
+			</index>
+		</table>
+		<table name="dim_review" prior="Entity" >
+			<column name="dim_review_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="book_id" type="BIGINT" jt="-5" />
+			<column name="user_id" type="BIGINT" jt="-5" />
+			<column name="review_text" type="CHAR" length="2000" jt="1" />
+			<column name="n_comments" type="INT" jt="4" />
+			<column name="n_votes" type="INT" jt="4" />
+			<column name="started_at" type="DATETIME" jt="93" />
+			<column name="read_at" type="DATETIME" jt="93" />
+			<column name="date_added" type="DATE" jt="91" />
+			<index name="pk_dim_review" unique="PRIMARY_KEY" >
+				<column name="dim_review_id" />
+			</index>
+		</table>
+		<table name="fact_user_interactions" prior="Entity" >
+			<column name="book_id" prior="book_dim_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="fact_user_interaction_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="dim_review_id" prior="review_dim_id" type="INT" jt="4" mandatory="y" />
+			<column name="author_1_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="author_2_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="author_3_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="user_id" type="INT" jt="4" />
+			<column name="is_read" type="INT" jt="4" />
+			<column name="is_reviewed" type="INT" jt="4" />
+			<column name="user_rating" type="INT" jt="4" />
+			<column name="rating" type="INT" jt="4" />
+			<index name="pk_fact_user_interactions" unique="PRIMARY_KEY" >
+				<column name="fact_user_interaction_id" />
+				<column name="book_id" />
+				<column name="dim_review_id" />
+				<column name="author_1_id" />
+				<column name="author_2_id" />
+				<column name="author_3_id" />
+			</index>
+			<fk name="fk_fact_user_interactions_dim_review" to_schema="goodreads_schema" to_table="dim_review" type="Identifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="dim_review_id" pk="dim_review_id" />
 			</fk>
-			<fk name="fk_facts_books_dim_date_0" to_schema="CIS 4400 - Mark Pedraza - Goodreads" to_table="dim_date" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
-				<fk_column name="date_added_id" pk="date_id" />
+			<fk name="fk_fact_user_interactions_dim_author" to_schema="goodreads_schema" to_table="dim_author" type="Identifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" />
+			<fk name="fk_fact_user_interactions_dim_book" to_schema="goodreads_schema" to_table="dim_book" type="Identifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="book_id" pk="book_id" />
 			</fk>
-			<fk name="fk_facts_books_dim_date_1" to_schema="CIS 4400 - Mark Pedraza - Goodreads" to_table="dim_date" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
-				<fk_column name="date_updated_id" pk="date_id" />
+			<fk name="fk_fact_user_interactions_dim_genre" to_schema="goodreads_schema" to_table="dim_genre" type="Identifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="book_id" pk="book_id" />
 			</fk>
-			<fk name="fk_facts_books_dim_date_2" to_schema="CIS 4400 - Mark Pedraza - Goodreads" to_table="dim_date" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
-				<fk_column name="read_at_id" pk="date_id" />
+			<fk name="fk_fact_user_interactions_dim_author_0" to_schema="goodreads_schema" to_table="dim_author" type="Identifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="author_1_id" pk="dim_author_id" />
 			</fk>
-			<fk name="fk_facts_books_dim_date_3" to_schema="CIS 4400 - Mark Pedraza - Goodreads" to_table="dim_date" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
-				<fk_column name="started_at_id" pk="date_id" />
+			<fk name="fk_fact_user_interactions_dim_author_1" to_schema="goodreads_schema" to_table="dim_author" type="Identifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="author_2_id" pk="dim_author_id" />
 			</fk>
-			<fk name="fk_facts_books_dim_location" to_schema="CIS 4400 - Mark Pedraza - Goodreads" to_table="dim_location" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
-				<fk_column name="country_id" pk="location_id" />
+			<fk name="fk_fact_user_interactions_dim_author_2" to_schema="goodreads_schema" to_table="dim_author" type="Identifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="author_3_id" pk="dim_author_id" />
 			</fk>
 		</table>
 	</schema>
-	<layout name="Default Layout" id="Layout-17bd" show_relation="columns" >
-		<entity schema="CIS 4400 - Mark Pedraza - Goodreads" name="dim_date" color="C1D8EE" x="48" y="48" />
-		<entity schema="CIS 4400 - Mark Pedraza - Goodreads" name="dim_location" color="C1D8EE" x="912" y="160" />
-		<entity schema="CIS 4400 - Mark Pedraza - Goodreads" name="facts_books" color="C1D8EE" x="560" y="224" />
+	<layout name="Default Layout" id="Layout-581" show_relation="columns" >
+		<entity schema="goodreads_schema" name="dim_author" color="C1D8EE" x="608" y="416" />
+		<entity schema="goodreads_schema" name="dim_book" color="C1D8EE" x="48" y="48" />
+		<entity schema="goodreads_schema" name="dim_genre" color="C1D8EE" x="48" y="448" />
+		<entity schema="goodreads_schema" name="dim_review" color="C1D8EE" x="624" y="64" />
+		<entity schema="goodreads_schema" name="fact_user_interactions" color="C1D8EE" x="336" y="320" />
 	</layout>
 </project>
