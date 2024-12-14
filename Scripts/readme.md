@@ -11,7 +11,7 @@ My own script is a modified version of the original. This script downloads the d
 
 ## Clean
 
-Loads in our data from the landing folder of the goodreads_bucket, then cleans it, and writes it out to the cleaned folder of the same bucket. The data is mostly clean to begin with, so not much cleaning was required.
+Loads in our data from the landing folder of the goodreads_bucket, then cleans it and reformats it, and writes it out to the cleaned folder of the same bucket. The data is mostly clean to begin with, so not much cleaning was required.
 
 ## DimensionCreation
 
