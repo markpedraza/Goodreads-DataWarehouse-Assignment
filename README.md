@@ -1,5 +1,15 @@
 # cis4400-homework
-This is my CIS 4400 Homework assignmnet. Below in this readme you will find the Business Requirements, Functional Requirements, Data Requirements, Data Sourcing, Information Architecture, and finally the Data Architecture
+This is my CIS 4400 Homework assignmnet. This is roughly a semester long solo project that explores data warehousing. Below in this readme you will find the following... 
+- Business Requirements
+- Functional Requirements
+- Data Requirements
+- Data Sourcing
+- Information Architecture
+- Data Architecture.
+- Technical Architecture
+- Citations
+
+The creator of this dataset is Mengting Wan, and her github can be found here: https://github.com/MengtingWan. If you are interested in learning more about who gathered this dataset, please visit her GitHub. Citations for her work can be found at the bottom of this readme.
 
 
 ## Business Requirements
@@ -19,17 +29,27 @@ This is my CIS 4400 Homework assignmnet. Below in this readme you will find the 
 - The data will be sourced through a connection to a Data Store/Cloud Storage. Specifically, Google Cloud Storage. 
 
 ## Information Architecture
-![Information Architecture](https://github.com/user-attachments/assets/86408ac6-b99a-4ff6-ae2e-6fbfe6fd1c11)
+![Information Architecture](https://github.com/markpedraza/cis-4400-homework/blob/main/Images/Information%20Architecture.png)
 
-First, we have our Data Source, which is located in. (https://mengtingwan.github.io/data/goodreads.html#datasets). From this source, we will gather the data and put it in a temporary storage. The data is very large, so any interruptions during extraction and transformation will result in significant time loss as the process would need to be restarted. The temporary storage will alleviate this. After temporary storage, the data will be cleaned, then finally be stored in the Data Warehouse.
+First, we have our Data Source, which is located [here](https://mengtingwan.github.io/data/goodreads.html#datasets). From this source, we will gather the data and put it in a temporary storage. The data is very large, so any interruptions during extraction and transformation will result in significant time loss as the process would need to be restarted. The temporary storage will alleviate this. After temporary storage, the data will be cleaned, then finally be stored in the Data Warehouse.
 Users will simply get access to reports generated from the Data Warehouse and will not get access to the Data Warehouse itself. 
 
 ## Data Architecture
-![Data Architecture](https://github.com/user-attachments/assets/dee7a8a3-a8b0-43da-bc56-f470263559d0)
+![Data Architecture](https://github.com/markpedraza/cis-4400-homework/blob/main/Images/Data%20Architecture.png)
 
-The Data Source contains multiple JSON files that include data and metadata about books from Goodreads.com. This data will then be moved into temporary storage, then into a Datamart, and finally it will be used there to create visualizations. 
+The Data Source contains multiple JSON files that includes metadata about books and authors from Goodreads.com. This data will then be moved into temporary storage, then into a Datamart, and finally it will be used there to create visualizations. 
+
+## Technical Architecture
+![Technical Architecture](https://github.com/markpedraza/cis-4400-homework/blob/main/Images/Technical%20Architecture.png)
+
+Here, we can see specifically what tools we will use and how we will store everything. From the website, we will use the ExtractLoad script to extract the data and load it into our Google Cloud Storgae bucket. Then we will use the Clean script to read the data from teh bucket, clean it, then write it back out to the bucket. Once thats done, we will use the DimensionCreation script to seperate, transform, and consolidate the data to create our facts tables and dimensions. This will be loaded into BigQuery, where we can finally use Tableau to visualize the data. 
 
 ## Data Model
-![early_db_schema_goodreads](https://github.com/user-attachments/assets/83745b5a-00d5-4450-9098-92246cc916ad)
+![DBSchema](https://github.com/user-attachments/assets/83745b5a-00d5-4450-9098-92246cc916ad)
 
-This is the schema for the assignment, and was assembled using DBSchema. The file for this is located in the docs folder. 
+This is the schema for the assignment, and was assembled using DBSchema. The file for this is located in the docs folder.
+
+## Citations 
+
+- Mengting Wan, Julian McAuley, "[Item Recommendation on Monotonic Behavior Chains](https://github.com/MengtingWan/mengtingwan.github.io/raw/master/paper/recsys18_mwan.pdf)", in RecSys'18. [[bibtex](https://dblp.uni-trier.de/rec/bibtex/conf/recsys/WanM18)]
+- Mengting Wan, Rishabh Misra, Ndapa Nakashole, Julian McAuley, "[Fine-Grained Spoiler Detection from Large-Scale Review Corpora](https://github.com/MengtingWan/mengtingwan.github.io/raw/master/paper/acl19_mwan.pdf)", in ACL'19. [[bibtex](https://dblp.uni-trier.de/rec/bibtex/conf/acl/WanMNM19)]
