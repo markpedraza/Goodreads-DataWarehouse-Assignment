@@ -59,7 +59,9 @@ For the most part, all features in this schema are already available to us in ou
 Instead, I took the first 3 values from the authors array and discarded the roles they were assigned, then flattened these values. This leaves us with 3 new columns (author_1_id, author_2_id, author_3_id) that each give the author_id for the authors that worked on a book. Obviously though, not all books have 3 authors, so there will be null values columns following the first. But also, some books could have more than 4 authors, so unfortunately that data was lost in this modified dataset. However, although not perfect, this data will still be useful for us if we wish to make general visualizations for authors. 
 
 ## Visualizations
-Once all the steps above are completed, we can move our data to Google BigQuery and visualize it with Tableau. In this section, I will show those visualizations. 
+Once all the steps above are completed, we can move our data to Google BigQuery and visualize it with Tableau. Below are those visualizations.
+
+###
 
 ## Citations 
 
